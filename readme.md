@@ -18,4 +18,4 @@ The `games` package handles all the games, it has a game interface that each gam
 Server setup and command line interface is in `main.go`.
 
 ## License
-[GNU V3]()
+[GPL-3.0](https://raw.githubusercontent.com/SHA65536/Arcade/main/LICENSE)
