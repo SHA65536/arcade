@@ -1,6 +1,10 @@
 # The Arcade
 This is a small collections of terminal games served over SSH. Mostly a learning project for me as I want to get better at making bigger programs.
 
+<p align="center">
+  <img src="./.github/MainMenu.png"/>
+</p>
+
 ## How it works (Work in progress)
 Users connect to the server using SSH can either play as guests, or register and login with a username and password.
 

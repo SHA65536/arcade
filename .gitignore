@@ -5,3 +5,5 @@ fyne-cross/
 *.db-journal
 
 !.gitkeep
+
+.ssh
