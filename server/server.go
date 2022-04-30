@@ -104,7 +104,6 @@ func (m *SessionModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		if newGame, ok := ArcadeMap[m.Current.Redirect()]; ok {
 			// Showing starting screen of redirect
 			m.Current = newGame(m.Session)
-			_, retCmd = m.Current.Update(msg)
 		}
 	}
 	return m, retCmd

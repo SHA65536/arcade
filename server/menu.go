@@ -107,7 +107,7 @@ func (m *Menu) Status() int {
 }
 
 func (m *Menu) Redirect() string {
-	if m.MenuIdx == 0 && m.SelectionIdx == 2 {
+	if m.MenuIdx == 0 && m.SelectionIdx == 1 {
 		return "Auth"
 	}
 	return gameMenu[m.SelectionIdx]
