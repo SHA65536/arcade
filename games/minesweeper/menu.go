@@ -15,13 +15,26 @@ type MineMenu struct {
 }
 
 const listHeight = 14
-const defaultWidth = 20
+const defaultWidth = 24
 
 var (
-	titleStyle        = lipgloss.NewStyle().MarginLeft(2)
-	itemStyle         = lipgloss.NewStyle().PaddingLeft(4)
-	selectedItemStyle = lipgloss.NewStyle().PaddingLeft(2).Foreground(lipgloss.Color("170"))
-	quitTextStyle     = lipgloss.NewStyle().Margin(1, 0, 2, 4)
+	borderStyle        = lipgloss.NewStyle().BorderStyle(lipgloss.DoubleBorder()).BorderForeground(lipgloss.Color("63"))
+	titleStyle         = lipgloss.NewStyle().MarginLeft(3)
+	itemStyle          = lipgloss.NewStyle().PaddingLeft(3)
+	selectedArrowStyle = func(s string) string {
+		return lipgloss.NewStyle().
+			Foreground(lipgloss.Color("63")).
+			Blink(true).
+			Bold(true).
+			Render(s)
+	}
+	selectedItemStyle = func(s string) string {
+		return selectedArrowStyle(">> ") +
+			lipgloss.NewStyle().
+				Foreground(lipgloss.Color("#14F9D5")).
+				Bold(true).
+				Render(s)
+	}
 )
 
 type item string
@@ -44,7 +57,7 @@ func (d itemDelegate) Render(w io.Writer, m list.Model, index int, listItem list
 	fn := itemStyle.Render
 	if index == m.Index() {
 		fn = func(s string) string {
-			return selectedItemStyle.Render("> " + s)
+			return selectedItemStyle(s)
 		}
 	}
 
@@ -77,14 +90,14 @@ func (m *MineMenu) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m *MineMenu) View() string {
-	return "\n" + m.list.View()
+	return "\n" + borderStyle.Render(m.list.View())
 }
 
 func NewMineMenu() *MineMenu {
 	items := []list.Item{
-		item("Easy   - 10x10 10 Mines"),
-		item("Medium - 16x16 40 Mines"),
-		item("Hard   - 16x30 99 Mines"),
+		item("Easy   - 10x10 10 Mines  "),
+		item("Medium - 16x16 40 Mines  "),
+		item("Hard   - 16x30 99 Mines  "),
 	}
 	l := list.New(items, itemDelegate{}, defaultWidth, listHeight)
 	l.Title = "Choose Difficulty"
