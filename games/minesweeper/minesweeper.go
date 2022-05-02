@@ -19,6 +19,7 @@ type Minsweeper struct {
 	Session *session.Session
 	State   int
 	Menu    *MineMenu
+	Board   *Board
 }
 
 func MakeMinesweeper(s *session.Session) games.Game {
@@ -38,8 +39,9 @@ func (m *Minsweeper) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch m.State {
 	case mineMenu:
 		_, cmd = m.Menu.Update(msg)
-		if m.Menu.choice != "" {
+		if m.Menu.choice != -1 {
 			m.State = mineStarting
+			m.Board = NewBoard(m.Menu.choice)
 		}
 	}
 	return m, cmd
@@ -50,7 +52,7 @@ func (m *Minsweeper) View() string {
 	case mineMenu:
 		return m.Menu.View()
 	case mineStarting:
-		return "Strating: " + m.Menu.choice
+		return m.Board.View()
 	}
 	return "Error"
 }

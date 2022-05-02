@@ -11,7 +11,7 @@ import (
 
 type MineMenu struct {
 	list   list.Model
-	choice string
+	choice int
 }
 
 const listHeight = 14
@@ -77,10 +77,7 @@ func (m *MineMenu) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch keypress := msg.String(); keypress {
 		case "enter", " ":
-			i, ok := m.list.SelectedItem().(item)
-			if ok {
-				m.choice = string(i)
-			}
+			m.choice = m.list.Cursor()
 		}
 	}
 
@@ -106,5 +103,5 @@ func NewMineMenu() *MineMenu {
 	l.SetShowFilter(false)
 	l.SetShowPagination(false)
 	l.SetShowHelp(false)
-	return &MineMenu{list: l}
+	return &MineMenu{list: l, choice: -1}
 }
